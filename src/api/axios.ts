@@ -5,7 +5,7 @@ import { refreshApi } from "./auth.api";
 import { clearAuth, getAuthToken, setAuthToken } from "../utils/auth";
 
 const api = axios.create({
-  baseURL: "https://todo-backend-k6oa.onrender.com",
+  baseURL: "https://todo-backend-k6oa.onrender.com/",
   withCredentials: true,
 });
 
