@@ -31,7 +31,7 @@ const ChangePassword = ({
     });
 
     const onSubmit = (data: any) => {
-        // onSave(data);
+        console.log(data);
     };
 
     return createPortal(
