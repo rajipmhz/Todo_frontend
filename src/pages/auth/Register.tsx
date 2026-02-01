@@ -15,19 +15,18 @@ const schema = yup.object({
 function Register() {
   const { registerMutation } = Auth();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   })
 
   const onSubmit = (data: registerData) => {
     registerMutation.mutate({ ...data });
-    reset();
     navigate("/login");
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-blue-800 to-purple-800 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center  bg-white/10 backdrop-blur  px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-black p-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Create Account
         </h2>

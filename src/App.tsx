@@ -11,7 +11,9 @@ import {Toaster} from 'react-hot-toast'
 const App= () => {
   const location=useLocation();
   const hideHeader =
-    location.pathname === "/todos";
+    location.pathname === "/todos"||
+    location.pathname==="/login"||
+    location.pathname==="/register";
 
   return (
     <>

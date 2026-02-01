@@ -31,7 +31,7 @@ const Todos = () => {
 
           <div className="overflow-x-auto">
             <div className="bg-white rounded-xl shadow overflow-hidden min-w-[800px]">
-              <div className="grid grid-cols-10 text-sm font-semibold text-gray-700 bg-gray-100">
+              <div className="grid grid-cols-10 text-lg font-semibold text-gray-700 bg-gray-100">
                 <div>Date</div>
                 <div>Day</div>
                 <div>Check</div>
