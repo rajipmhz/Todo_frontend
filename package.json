@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-  "start": "vite preview --host --port $PORT"
+    "start": "vite preview --host --port $PORT"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -20,6 +20,7 @@
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.71.1",
     "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.13.0",
     "tailwindcss": "^4.1.18",
     "yup": "^1.7.1"

@@ -151,13 +151,13 @@ const AddTodoPortal = ({ onClose }: Props) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-2 py-2 border rounded-lg text-sm font-medium text-gray-700 hover:bg-blue-600 transition"
+              className="px-2 py-2 bg-red-500 border rounded-lg text-sm font-medium text-white hover:opacity-100 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-400 text-white rounded-lg text-sm font-semibold hover:bg-blue-900 transition"
+              className="px-4 py-2 bg-blue-400 text-white rounded-lg text-sm font-semibold  opacity-100 hover:opacity-90 transition"
             >
               Save
             </button>

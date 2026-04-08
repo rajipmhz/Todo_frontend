@@ -1,22 +1,24 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import * as yup from "yup";
 
 const schema = yup.object({
-  currentPassword: yup
-    .string()
-    .required("Current password is required"),
+    currentPassword: yup
+        .string()
+        .required("Current password is required"),
 
-  newPassword: yup
-    .string()
-    .required("New password is required")
-    .min(6, "Password must be at least 6 characters"),
+    newPassword: yup
+        .string()
+        .required("New password is required")
+        .min(6, "Password must be at least 6 characters"),
 
-  confirmPassword: yup
-    .string()
-    .required("Please confirm your new password")
-    .oneOf([yup.ref("newPassword")], "Passwords do not match"),
+    confirmPassword: yup
+        .string()
+        .required("Please confirm your new password")
+        .oneOf([yup.ref("newPassword")], "Passwords do not match"),
 });
 
 
@@ -26,8 +28,22 @@ type Props = {
 const ChangePassword = ({
     onClose
 }: Props) => {
+
+    const [showPassword, setShowPassword] = useState({
+        current:false,
+        new:false,
+        confirm:false,
+    })
+
+    const togglePassword = (key: "current" | "new" | "confirm") => {
+  setShowPassword(prev => ({
+    ...prev,
+    [key]: !prev[key],
+  }));
+};
+
     const { register, handleSubmit, formState: { errors } } = useForm({
-            resolver: yupResolver(schema),
+        resolver: yupResolver(schema),
     });
 
     const onSubmit = (data: any) => {
@@ -46,53 +62,102 @@ const ChangePassword = ({
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 ">
-                            Current Password
-                        </label>
-                        <input
-                        type="password"
-                            {...register("currentPassword")}
-                            className="border border-gray-300  rounded px-3 py-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="CurrentPassword"
-                        />
-                        <p className="text-xs text-red-500 mt-1">{errors.currentPassword?.message}</p>
-                    </div>
+                        <div className="relative">
+                            <label className="block text-sm font-medium text-gray-600 mb-1">
+                                Current Password
+                            </label>
 
-                    <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 ">
-                            New Password
-                        </label>
-                        <input
-                        type="password"
-                            {...register("newPassword")}
-                            className="border border-gray-300  rounded px-3 py-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="New Password"
-                        />
-                        <p className="text-xs text-red-500 mt-1">{errors.newPassword?.message}</p>
-                    </div>
+                            <input
+                                type={showPassword.current ? "text" : "password"}
+                                {...register("currentPassword")}
+                                placeholder="Enter your password"
+                                className="w-full px-4 pr-10 py-2 rounded-lg border border-gray-300 
+                          focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                            />
 
-
-
-                    <div className="flex flex-col">
-                        <label className="text-sm font-medium text-gray-700 ">
-                            Confrim New Password
-                        </label>
-                        <input
-                        type="password"
-                            {...register("confirmPassword")}
-                            className="border border-gray-300 rounded px-3 py-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Confirm Password"
-                        />
-                        <p className="text-xs text-red-500 mt-1">{errors.confirmPassword?.message}</p>
+                            <button
+                                type="button"
+                                onClick={() => togglePassword("current")}
+                                className="absolute inset-y-0 mt-6 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                            >
+                                {showPassword.current ? (
+                                    <AiOutlineEye size={30} />
+                                ) : (
+                                    <AiOutlineEyeInvisible size={30} />
+                                )}
+                            </button>
+                        </div>
+                        <p className="text-xs text-red-500 mt-1">
+                            {errors.currentPassword?.message}</p>
                     </div>
 
 
+                   <div className="flex flex-col">
+                        <div className="relative">
+                            <label className="block text-sm font-medium text-gray-600 mb-1">
+                                New Password
+                            </label>
+
+                            <input
+                                type={showPassword.new ? "text" : "password"}
+                                {...register("newPassword")}
+                                placeholder="Enter your password"
+                                className="w-full px-4 pr-10 py-2 rounded-lg border border-gray-300 
+                          focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => togglePassword("new")}
+                                className="absolute inset-y-0 mt-6 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                            >
+                                {showPassword.new ? (
+                                    <AiOutlineEye size={30} />
+                                ) : (
+                                    <AiOutlineEyeInvisible size={30} />
+                                )}
+                            </button>
+                        </div>
+                        <p className="text-xs text-red-500 mt-1">
+                            {errors.newPassword?.message}</p>
+                    </div>
+
+
+ <div className="flex flex-col">
+                        <div className="relative">
+                            <label className="block text-sm font-medium text-gray-600 mb-1">
+                                Confirm New Password 
+                            </label>
+
+                            <input
+                                type={showPassword.confirm ? "text" : "password"}
+                                {...register("confirmPassword")}
+                                placeholder="Enter your password"
+                                className="w-full px-4 pr-10 py-2 rounded-lg border border-gray-300 
+                          focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => togglePassword("confirm")}
+                                className="absolute inset-y-0 mt-6 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                            >
+                                {showPassword.confirm ? (
+                                    <AiOutlineEye size={30} />
+                                ) : (
+                                    <AiOutlineEyeInvisible size={30} />
+                                )}
+                            </button>
+                        </div>
+                        <p className="text-xs text-red-500 mt-1">
+                            {errors.confirmPassword?.message}</p>
+                    </div>
 
                     <div className="flex justify-end gap-3 pt-3">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 border rounded-lg text-sm font-medium text-gray-700 transition"
+                            className="px-4 py-2 border rounded-lg text-sm font-medium text-gray-700  hover:text-red-500 transition"
                         >
                             Close
                         </button>

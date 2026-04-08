@@ -4,8 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(),tailwindcss()],
-    preview: {
-    host: true,
-    allowedHosts: ["todo-frontend-79r1.onrender.com"],
-  },
+  //   preview: {
+  //   host: true,
+  //   allowedHosts: ["todo-frontend-79r1.onrender.com"],
+  // },
 })

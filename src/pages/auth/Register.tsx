@@ -4,6 +4,8 @@ import * as yup from "yup";
 import type { registerData } from "../../types/auth";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../hooks/auth";
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const schema = yup.object({
   name: yup.string().matches(/^[A-Za-z\s]+$/, "Only letters are allowed").required("lastname is required"),
@@ -14,6 +16,7 @@ const schema = yup.object({
 
 function Register() {
   const { registerMutation } = Auth();
+const [showPassword,setShowPassword]=useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
@@ -58,7 +61,7 @@ function Register() {
             />
             <p className="text-xs text-red-500 mt-1">{errors.email?.message}</p>
           </div>
-
+{/* 
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Password
@@ -71,7 +74,32 @@ function Register() {
             focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
             />
             <p className="text-xs text-red-500 mt-1">{errors.password?.message}</p>
-          </div>
+          </div> */}
+             <div className="relative">
+                      <label className="block text-sm font-medium text-gray-600 mb-1">
+                        Password
+                      </label>
+          
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        {...register("password")}
+                        placeholder="Enter your password"
+                        className="w-full px-4 pr-10 py-2 rounded-lg border border-gray-300 
+                focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                      />
+          
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 mt-6 right-3 flex items-center text-gray-500 hover:text-gray-700"
+                      >
+                        {showPassword ? (
+                          <AiOutlineEyeInvisible size={30} />
+                        ) : (
+                          <AiOutlineEye size={30} />
+                        )}
+                      </button>
+                    </div>
 
           <button
             type="submit"
